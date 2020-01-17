@@ -13,7 +13,33 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
-		
+		<script>
+			let xhrToday = new XMLHttpRequest();
+			let todayDiv = document.getElementById("codeToday");
+			todayDiv.style.textAlign = "center";
+			todayDiv.innerText = '加载中···';
+			xhrToday.open('get', 'https://api.ooopn.com/history/api.php?type=json');
+			xhrToday.onreadystatechange = function () {
+				if (xhrToday.readyState === 4) {
+					let dataToday = JSON.parse(xhrToday.responseText);
+					if (dataToday.code === '200') {
+						todayDiv.innerText = null;
+						let todayDay = document.createElement("h1");
+						todayDay.innerText = dataToday.day;
+						todayDiv.appendChild(todayDay);
+						let newsList = dataToday.content;
+						for (let i = 0; i < newsList.length; i++) {
+							let newsP = document.createElement("h4");
+							newsP.innerText = newsList[i];
+							todayDiv.appendChild(newsP);
+						}
+					} else {
+						todayDiv.innerText = '加载失败';
+					}
+				}
+			};
+			xhrToday.send();
+		</script>
 		
 
 	</head>
@@ -121,33 +147,7 @@
 									<h2>念诗？</h2>
 								</header>
 								<form action="#" method="post">
-									<script>
-										let xhrToday = new XMLHttpRequest();
-										let todayDiv = document.getElementById("codeToday");
-										todayDiv.style.textAlign = "center";
-										todayDiv.innerText = '加载中···';
-										xhrToday.open('get', 'https://api.ooopn.com/history/api.php?type=json');
-										xhrToday.onreadystatechange = function () {
-											if (xhrToday.readyState === 4) {
-												let dataToday = JSON.parse(xhrToday.responseText);
-												if (dataToday.code === '200') {
-													todayDiv.innerText = null;
-													let todayDay = document.createElement("h1");
-													todayDay.innerText = dataToday.day;
-													todayDiv.appendChild(todayDay);
-													let newsList = dataToday.content;
-													for (let i = 0; i < newsList.length; i++) {
-														let newsP = document.createElement("h4");
-														newsP.innerText = newsList[i];
-														todayDiv.appendChild(newsP);
-													}
-												} else {
-													todayDiv.innerText = '加载失败';
-												}
-											}
-										};
-										xhrToday.send();
-									</script>
+									
 								 <div id="codeToday"></div>
 									
 									
