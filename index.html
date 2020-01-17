@@ -177,7 +177,7 @@
 						if (dataToday.code === 1) {
 							let todayList = dataToday.data;
 							let curDate = new Date();
-							todayDiv.innerHTML = type === 0 ? '<a target="_blank" style="font-size:22px;font-weight:bold;color:red" href="detail">详细信息</a>' : "" +
+							todayDiv.innerHTML = type === 0 ? '<a target="_blank" style="font-size:22px;font-weight:bold;color:red" href="?detail">详细信息</a>' : "" +
 								'<h1>'+curDate.getFullYear()+'年'+(curDate.getMonth() + 1)+'月'+curDate.getDate()+'日'+'</h1><hr>';
 							for (let i = 0; i < todayList.length; i++) {
 								let dDom = document.createElement("div");
